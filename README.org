@@ -1,0 +1,2 @@
+#+TITLE: My essential emacs configuration (any host)
+
