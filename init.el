@@ -19,6 +19,29 @@
 (delete-selection-mode t)
 (setq require-final-newline t)
 
+
+(if (string-equal system-type "darwin")
+    (progn
+      ;; la touche alt (ou option, logo -<) est bindée sur méta
+      (setq mac-option-modifier 'meta)
+
+      ;; la touche droite option (ou alternate) n'est pas bindée
+      ;; afin d'accéder aux caractères ~ \ et compagnie
+      (setq mac-right-option-modifier 'nil)
+
+      ;; disabled ring bell
+      (setq ring-bell-function #'ignore)
+
+      ;; sur OSX avec macports ou homebrew
+      (setq-default ispell-program-name "/usr/local/bin/aspell")
+      
+      ;; récupérer le PATH du shell sur OSX (quand emacs n'est pas lancé du shell) !
+      (use-package exec-path-from-shell
+	:ensure t
+	:config
+	(exec-path-from-shell-initialize))      
+      ))
+
 ;; Package configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
